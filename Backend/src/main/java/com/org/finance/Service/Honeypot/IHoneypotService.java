@@ -1,6 +1,6 @@
-package com.org.finance.Service.honeypot;
+package com.org.finance.Service.Honeypot;
 
-import com.org.finance.Model.main.HoneypotInfo;
+import com.org.finance.Model.Main.HoneypotInfo;
 import org.json.JSONObject;
 
 import java.io.IOException;

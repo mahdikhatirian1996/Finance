@@ -1,4 +1,4 @@
-package com.org.finance.Model.main;
+package com.org.finance.Model.Main;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

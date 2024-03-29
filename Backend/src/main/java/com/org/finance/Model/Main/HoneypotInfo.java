@@ -1,4 +1,4 @@
-package com.org.finance.Model.main;
+package com.org.finance.Model.Main;
 
 import com.org.finance.Model.Enum.CurrencyType;
 import jakarta.persistence.*;

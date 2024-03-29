@@ -1,4 +1,4 @@
-package com.org.finance.Dto.main;
+package com.org.finance.Dto.Main;
 
 import lombok.Getter;
 import lombok.Setter;

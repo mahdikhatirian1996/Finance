@@ -1,6 +1,6 @@
-package com.org.finance.Service.dextools;
+package com.org.finance.Service.Dextools;
 
-import com.org.finance.Model.main.DextoolsInfo;
+import com.org.finance.Model.Main.DextoolsInfo;
 
 import java.sql.Timestamp;
 
