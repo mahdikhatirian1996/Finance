@@ -2,6 +2,7 @@ package com.org.finance.Service.impl.honeypot;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.org.finance.Dao.honeypot.IHoneypotRepository;
+import com.org.finance.Model.Enum.CurrencyType;
 import com.org.finance.Model.main.HoneypotInfo;
 import com.org.finance.Service.honeypot.IHoneypotService;
 import org.json.JSONObject;
@@ -58,20 +59,22 @@ public class HoneypotService implements IHoneypotService {
         JSONObject holderAnalysisJson = pureObject.getJSONObject("holderAnalysis");
         JSONObject simulationResultJson = pureObject.getJSONObject("simulationResult");
         JSONObject pairJson = pureObject.getJSONObject("pair");
-        params.append("'currencyType'").append(":'").append(chainJson.getString("currency")).append("', ");
-        params.append("'contractAddress'").append(":'").append(tokenJson.getString("address")).append("', ");
-        params.append("isOpensource").append(":").append(contractCodeJson.getBoolean("openSource")).append(", ");
-        params.append("isHoneypot").append(":").append(honeypotResultJson.getBoolean("isHoneypot")).append(", ");
-        params.append("'createdDate'").append(":'").append(pairJson.getString("createdAtTimestamp") + "000").append("', ");
-        params.append("'liquidity'").append(":'").append(pairJson.getDouble("liquidity")).append("', ");
-        params.append("'averageGas'").append(":'").append(holderAnalysisJson.getDouble("averageGas")).append("', ");
-        params.append("'averageTax'").append(":'").append(holderAnalysisJson.getDouble("averageTax")).append("', ");
-        params.append("'holders'").append(":'").append(holderAnalysisJson.getString("holders")).append("', ");
-        params.append("'sellGas'").append(":'").append(simulationResultJson.getString("sellGas")).append("', ");
-        params.append("'buyGas'").append(":'").append(simulationResultJson.getString("buyGas")).append("', ");
-        params.append("'sellTax'").append(":'").append(simulationResultJson.getDouble("sellTax")).append("', ");
-        params.append("'buyTax'").append(":'").append(simulationResultJson.getDouble("buyTax")).append("', ");
-        params.append("'transferTax'").append(":'").append(simulationResultJson.getDouble("transferTax")).append("'} ");
+        params.append("\"currencyType\"").append(":\"").append(
+            CurrencyType.getEnumNameFromTitle(chainJson.getString("currency"))
+        ).append("\", ");
+        params.append("\"contractAddress\"").append(":\"").append(tokenJson.getString("address")).append("\", ")
+        .append("\"isOpensource\"").append(":\"").append(contractCodeJson.getBoolean("openSource")).append("\", ")
+        .append("\"isHoneypot\"").append(":\"").append(honeypotResultJson.getBoolean("isHoneypot")).append("\", ")
+        .append("\"createdDate\"").append(":\"").append(pairJson.getString("createdAtTimestamp")).append("000").append("\", ")
+        .append("\"liquidity\"").append(":\"").append(pairJson.getDouble("liquidity")).append("\", ")
+        .append("\"averageGas\"").append(":\"").append(holderAnalysisJson.getDouble("averageGas")).append("\", ")
+        .append("\"averageTax\"").append(":\"").append(holderAnalysisJson.getDouble("averageTax")).append("\", ")
+        .append("\"holders\"").append(":\"").append(holderAnalysisJson.getString("holders")).append("\", ")
+        .append("\"sellGas\"").append(":\"").append(simulationResultJson.getString("sellGas")).append("\", ")
+        .append("\"buyGas\"").append(":\"").append(simulationResultJson.getString("buyGas")).append("\", ")
+        .append("\"sellTax\"").append(":\"").append(simulationResultJson.getDouble("sellTax")).append("\", ")
+        .append("\"buyTax\"").append(":\"").append(simulationResultJson.getDouble("buyTax")).append("\", ")
+        .append("\"transferTax\"").append(":\"").append(simulationResultJson.getDouble("transferTax")).append("\"} ");
         return params.toString();
     }
 

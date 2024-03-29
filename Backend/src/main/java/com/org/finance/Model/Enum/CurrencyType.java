@@ -19,16 +19,10 @@ public enum CurrencyType {
         this.honeypotTitle = englishTitle;
     }
 
-    public static HashMap<String, Object> getJsonValueOfIndex(Integer index) {
+    public static String getEnumNameFromTitle(String honeypotTitle) {
         for (CurrencyType currency : CurrencyType.values()) {
-            if (currency.getIndex().equals(index)) {
-                HashMap<String, Object> mainEnum = new HashMap<>();
-                HashMap<String, Object> detailEnum = new HashMap<>();
-                detailEnum.put("index", currency.getIndex());
-                detailEnum.put("persianTitle", currency.getPersianTitle());
-                detailEnum.put("honeypotTitle", currency.getHoneypotTitle());
-                mainEnum.put(currency.name(), detailEnum);
-                return mainEnum;
+            if (currency.getHoneypotTitle().equals(honeypotTitle)) {
+                return currency.name();
             }
         }
         return null;

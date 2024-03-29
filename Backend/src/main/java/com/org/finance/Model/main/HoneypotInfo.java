@@ -52,7 +52,8 @@ public class HoneypotInfo {
     private String createdDate;
 
     @Column(name = "CURRENCY_TYPE")
-    private String currencyType;
+    @Enumerated(EnumType.ORDINAL)
+    private CurrencyType currencyType;
 
     @Column(name = "IS_OPENSOURCE")
     private Boolean isOpensource;
@@ -64,7 +65,7 @@ public class HoneypotInfo {
     public HoneypotInfo(
         String contractAddress, String holders, String averageTax, String averageGas, String sellGas,
         String buyGas, String sellTax, String buyTax, String transferTax, Boolean isHoneypot,
-        String honeypotReason, String liquidity, String currencyType, Boolean isOpensource
+        String honeypotReason, String liquidity, CurrencyType currencyType, Boolean isOpensource
     ) {
         this.contractAddress = contractAddress;
         this.holders = holders;
