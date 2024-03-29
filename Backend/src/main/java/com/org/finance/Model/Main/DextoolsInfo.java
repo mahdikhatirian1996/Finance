@@ -7,6 +7,8 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Timestamp;
+
 @Getter
 @Setter
 @Entity
@@ -29,11 +31,17 @@ public class DextoolsInfo {
     @Column(name = "LIQUIDITY")
     private String liquidity;
 
-    @Column(name = "CREATED_DATE")
+//    @Column(name = "CREATED_DATE")
     private String createdDate;
 
-    @Column(name = "UPDATED_DATE")
+//    @Column(name = "UPDATED_DATE")
     private String updatedDate;
+
+//    @Column(name = "CREATED_DATE")
+    private Timestamp createdDateTemp;
+
+//    @Column(name = "UPDATED_DATE")
+    private Timestamp updatedDateTemp;
 
     public DextoolsInfo() {}
 
