@@ -31,23 +31,17 @@ public class DextoolsInfo {
     @Column(name = "LIQUIDITY")
     private String liquidity;
 
-//    @Column(name = "CREATED_DATE")
-    private String createdDate;
+    @Column(name = "CREATED_DATE")
+    private Timestamp createdDate;
 
-//    @Column(name = "UPDATED_DATE")
-    private String updatedDate;
-
-//    @Column(name = "CREATED_DATE")
-    private Timestamp createdDateTemp;
-
-//    @Column(name = "UPDATED_DATE")
-    private Timestamp updatedDateTemp;
+    @Column(name = "UPDATED_DATE")
+    private Timestamp updatedDate;
 
     public DextoolsInfo() {}
 
     public DextoolsInfo(
         String contractAddress, String name, String symbol, String holders,
-        String liquidity, String createdDate, String updatedDate
+        String liquidity, Timestamp createdDate, Timestamp updatedDate
     ) {
         this.contractAddress = contractAddress;
         this.name = name;

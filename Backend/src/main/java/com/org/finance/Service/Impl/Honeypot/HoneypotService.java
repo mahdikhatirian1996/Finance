@@ -84,4 +84,10 @@ public class HoneypotService implements IHoneypotService {
         String originObject = convertPureObject(pureObject);
         return new ObjectMapper().readValue(originObject, HoneypotInfo.class);
     }
+
+    @Override
+    public HoneypotInfo save(String contractAddress) throws IOException {
+        HoneypotInfo entity = iHoneypotRepository.save(mapJSONObjectOnHoneypotInfo(contractAddress));
+        return iHoneypotRepository.save(entity);
+    }
 }

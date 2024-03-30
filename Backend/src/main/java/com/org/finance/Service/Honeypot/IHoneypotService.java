@@ -10,4 +10,5 @@ public interface IHoneypotService {
     JSONObject getDextoolsValidationInformationFromHoneypot(String contractAddress) throws IOException;
     String convertPureObject(JSONObject pureObject);
     HoneypotInfo mapJSONObjectOnHoneypotInfo(String contractAddress) throws IOException;
+    HoneypotInfo save(String contractAddress) throws IOException;
 }
