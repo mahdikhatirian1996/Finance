@@ -1,6 +1,7 @@
 package com.org.finance.ws.rest.Controller.Honeypot;
 
-import com.org.finance.Service.honeypot.IHoneypotService;
+import com.org.finance.Model.Main.HoneypotInfo;
+import com.org.finance.Service.Honeypot.IHoneypotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +18,9 @@ public class HoneypotController {
     IHoneypotService iHoneypotService;
 
     @GetMapping("/getData/{contractAddress}")
-    public ResponseEntity<Boolean> getData(
+    public ResponseEntity<HoneypotInfo> getData(
         @PathVariable("contractAddress") String contractAddress
     ) throws IOException {
-        iHoneypotService.mapJSONObjectOnHoneypotInfo(contractAddress);
-        return new ResponseEntity<>(true, HttpStatus.OK);
+        return new ResponseEntity<>(iHoneypotService.mapJSONObjectOnHoneypotInfo(contractAddress), HttpStatus.OK);
     }
 }

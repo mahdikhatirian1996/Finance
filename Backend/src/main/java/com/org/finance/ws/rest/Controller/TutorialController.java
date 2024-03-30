@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import com.org.finance.Model.Tutorial;
 import com.org.finance.Dao.TutorialRepository;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin(origins="http://localhost:4200")
+@CrossOrigin(origins="*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api")
 public class TutorialController {
@@ -120,4 +121,8 @@ public class TutorialController {
 		}
 	}
 
+    @GetMapping("/getData")
+    public ResponseEntity<Boolean> getData(@RequestBody String obj2){
+        return new ResponseEntity<>(true, HttpStatus.OK);
+    }
 }
