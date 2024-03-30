@@ -52,29 +52,39 @@ public class HoneypotService implements IHoneypotService {
     @Override
     public String convertPureObject(JSONObject pureObject) {
         StringBuilder params = new StringBuilder(" {") ;
+        Boolean haveHolderAnalysisJson = pureObject.getJSONObject("holderAnalysis").isEmpty();
+
+        JSONObject pairJson = pureObject.getJSONObject("pair");
         JSONObject chainJson = pureObject.getJSONObject("chain");
         JSONObject tokenJson = pureObject.getJSONObject("token");
         JSONObject contractCodeJson = pureObject.getJSONObject("contractCode");
         JSONObject honeypotResultJson = pureObject.getJSONObject("honeypotResult");
-        JSONObject holderAnalysisJson = pureObject.getJSONObject("holderAnalysis");
         JSONObject simulationResultJson = pureObject.getJSONObject("simulationResult");
-        JSONObject pairJson = pureObject.getJSONObject("pair");
-        params.append("\"currencyType\"").append(":\"").append(
-            CurrencyType.getEnumNameFromTitle(chainJson.getString("currency"))
-        ).append("\", ");
-        params.append("\"contractAddress\"").append(":\"").append(tokenJson.getString("address")).append("\", ")
+        String currencyTypeName = CurrencyType.getEnumNameFromTitle(chainJson.getString("currency"));
+
+
+        params.append("\"currencyType\"").append(":\"").append(currencyTypeName).append("\", ")
+        .append("\"name\"").append(":\"").append(tokenJson.getString("name")).append("\", ")
+        .append("\"contractAddress\"").append(":\"").append(tokenJson.getString("address")).append("\", ")
         .append("\"isOpensource\"").append(":\"").append(contractCodeJson.getBoolean("openSource")).append("\", ")
         .append("\"isHoneypot\"").append(":\"").append(honeypotResultJson.getBoolean("isHoneypot")).append("\", ")
-        .append("\"createdDate\"").append(":\"").append(pairJson.getString("createdAtTimestamp")).append("000").append("\", ")
         .append("\"liquidity\"").append(":\"").append(pairJson.getDouble("liquidity")).append("\", ")
-        .append("\"averageGas\"").append(":\"").append(holderAnalysisJson.getDouble("averageGas")).append("\", ")
-        .append("\"averageTax\"").append(":\"").append(holderAnalysisJson.getDouble("averageTax")).append("\", ")
-        .append("\"holders\"").append(":\"").append(holderAnalysisJson.getString("holders")).append("\", ")
-        .append("\"sellGas\"").append(":\"").append(simulationResultJson.getString("sellGas")).append("\", ")
+        .append("\"createdDate\"").append(":\"").append(pairJson.getString("createdAtTimestamp")).append("000").append("\", ")
         .append("\"buyGas\"").append(":\"").append(simulationResultJson.getString("buyGas")).append("\", ")
-        .append("\"sellTax\"").append(":\"").append(simulationResultJson.getDouble("sellTax")).append("\", ")
         .append("\"buyTax\"").append(":\"").append(simulationResultJson.getDouble("buyTax")).append("\", ")
-        .append("\"transferTax\"").append(":\"").append(simulationResultJson.getDouble("transferTax")).append("\"} ");
+        .append("\"sellGas\"").append(":\"").append(simulationResultJson.getString("sellGas")).append("\", ")
+        .append("\"sellTax\"").append(":\"").append(simulationResultJson.getDouble("sellTax")).append("\", ")
+        .append("\"transferTax\"").append(":\"").append(simulationResultJson.getDouble("transferTax")).append("\"");
+
+        if (!haveHolderAnalysisJson) {
+            JSONObject holderAnalysisJson = pureObject.getJSONObject("holderAnalysis");
+            params.append(", \"holders\"").append(":\"").append(holderAnalysisJson.getString("holders")).append("\", ")
+            .append("\"averageGas\"").append(":\"").append(holderAnalysisJson.getDouble("averageGas")).append("\", ")
+            .append("\"averageTax\"").append(":\"").append(holderAnalysisJson.getDouble("averageTax")).append("\"} ");
+        } else {
+            params.append("}");
+        }
+
         return params.toString();
     }
 

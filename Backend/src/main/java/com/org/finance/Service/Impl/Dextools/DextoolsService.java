@@ -1,7 +1,9 @@
 package com.org.finance.Service.Impl.Dextools;
 
 import com.org.finance.Dao.Dextools.IDextoolsRepository;
+import com.org.finance.Model.Enum.ErrorType;
 import com.org.finance.Model.Main.DextoolsInfo;
+import com.org.finance.Model.Main.HoneypotInfo;
 import com.org.finance.Service.Dextools.IDextoolsService;
 import com.org.finance.Service.Honeypot.IHoneypotService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,9 @@ import java.sql.Timestamp;
 
 @Service
 public class DextoolsService implements IDextoolsService {
+
+    private final DextoolsInfo repeatedObject = new DextoolsInfo(ErrorType.REPEATED);
+    private final DextoolsInfo outOfTimeObject = new DextoolsInfo(ErrorType.OUT_OF_TIME);
 
     @Autowired
     private IDextoolsRepository iDextoolsRepository;
@@ -43,12 +48,20 @@ public class DextoolsService implements IDextoolsService {
     @Override
     public DextoolsInfo save(DextoolsInfo entity) throws IOException {
         if (isGreaterThanSpecificHour(entity.getCreatedDate(), 2)) {
-            if (iDextoolsRepository.findByContractAddress(entity.getContractAddress()) == null) {
-                iHoneypotService.save(entity.getContractAddress());
-                System.out.println("save in : " + new Timestamp(System.currentTimeMillis()) + "\n");
+            if (
+                    iDextoolsRepository.findByContractAddress(entity.getContractAddress()) == null &&
+                    iHoneypotService.findByContractAddress(entity.getContractAddress()) == null
+            ) {
+                HoneypotInfo honeypotInfo = iHoneypotService.save(entity.getContractAddress());
+                if (entity.getName() == null) {
+                    entity.setName(honeypotInfo.getName());
+                }
                 return iDextoolsRepository.save(entity);
+            } else {
+                return repeatedObject;
             }
+        } else {
+            return outOfTimeObject;
         }
-        return null;
     }
 }

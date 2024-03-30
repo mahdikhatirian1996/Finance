@@ -15,6 +15,9 @@ public class HoneypotInfo {
     @Column(name = "CONTRACT_ADDRESS")
     private String contractAddress;
 
+    @Column(name = "NAME")
+    private String name;
+
     @Column(name = "HOLDERS")
     private String holders;
 
@@ -57,7 +60,6 @@ public class HoneypotInfo {
 
     @Column(name = "IS_OPENSOURCE")
     private Boolean isOpensource;
-
 
     public HoneypotInfo() {
     }

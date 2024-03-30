@@ -1,9 +1,7 @@
 package com.org.finance.Model.Main;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.org.finance.Model.Enum.ErrorType;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -37,11 +35,18 @@ public class DextoolsInfo {
     @Column(name = "UPDATED_DATE")
     private Timestamp updatedDate;
 
+    @Transient
+    private ErrorType errorType;
+
     public DextoolsInfo() {}
+
+    public DextoolsInfo(ErrorType errorType){
+        this.setErrorType(errorType);
+    }
 
     public DextoolsInfo(
         String contractAddress, String name, String symbol, String holders,
-        String liquidity, Timestamp createdDate, Timestamp updatedDate
+        String liquidity, Timestamp createdDate, Timestamp updatedDate, ErrorType errorType
     ) {
         this.contractAddress = contractAddress;
         this.name = name;
@@ -50,5 +55,6 @@ public class DextoolsInfo {
         this.liquidity = liquidity;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
+        this.errorType = errorType;
     }
 }

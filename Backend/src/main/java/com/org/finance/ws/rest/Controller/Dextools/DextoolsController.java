@@ -23,19 +23,21 @@ public class DextoolsController {
         @PathVariable("params") String params
     ) throws Exception {
         try {
-            DextoolsInfo savedObject = iDextoolsService.save(new ObjectMapper().readValue(
-                params,
-                DextoolsInfo.class
-            ));
-            // TODO: Find Name In Another Json Key
-            if (savedObject != null) {
+            DextoolsInfo savedObject = iDextoolsService.save(
+                    new ObjectMapper().readValue(
+                            params,
+                            DextoolsInfo.class
+                    )
+            );
+            // TODO: Find Name In Another Json Key OK
+            if (savedObject.getContractAddress() != null) {
                 System.out.println("Save At : " + new Timestamp(System.currentTimeMillis()) + " => This Object" + params);
             } else {
-                System.out.println("Object Isn't Valid.");
+                System.out.println("Object Isn't Valid Cause : " + savedObject.getErrorType().getEnglishTitle());
             }
         } catch (Exception e) {
             System.out.println("Exception Occur On : " + e.getMessage());
-            // TODO: Handle This => (exception : JSONObject["holderAnalysis"] not found.)
+            // TODO: 1) Handle This => (exception : JSONObject["holderAnalysis"] not found.)
         }
     }
 }
