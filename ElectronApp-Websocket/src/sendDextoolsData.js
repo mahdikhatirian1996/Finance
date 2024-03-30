@@ -19,8 +19,8 @@ WebSocket.prototype.send = function (...e) {
                     symbol: info?.symbol,
                     holders: info?.holders,
                     liquidity: pair?.liquidity,
-                    updatedDate: pair?.updatedAt,
-                    createdDate: pair?.createdAtTimestamp
+                    updatedDate: pair?.updatedAt * 1000 ,
+                    createdDate: pair?.createdAtTimestamp * 1000
                 });
                 fetch(`http://localhost:8080/api/dextools/getData/${(params)}`)
             }
