@@ -1,3 +1,6 @@
+# Root Project
+/.idea/
+
 # Backend (Spring-Boot App)
 /Backend/.idea/
 #/Backend/
