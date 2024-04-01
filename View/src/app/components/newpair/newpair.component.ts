@@ -1,28 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { Tutorial } from '../../models/tutorial.model';
-import { TutorialService } from '../../services/tutorial.service';
+import {Component, OnInit} from '@angular/core';
+import {Tutorial} from '../../models/tutorial.model';
+import {NewPairModel} from "../../models/newpair/newpair.model";
+import {NewPairService} from "../../services/newpair/newpair.service";
 
 @Component({
-  selector: 'app-tutorials-list',
-  templateUrl: './newpair.component.html',
-  styleUrls: ['./tutorials-list.component.css'],
+  selector: 'app-newpair-list',
+  templateUrl: './newpair.component.html'
 })
 export class NewpairComponent implements OnInit {
-  tutorials?: Tutorial[];
+  newPairModels?: NewPairModel[];
   currentTutorial: Tutorial = {};
   currentIndex = -1;
   title = '';
 
-  constructor(private tutorialService: TutorialService) {}
-
-  ngOnInit(): void {
-    this.retrieveTutorials();
+  constructor(private newPairService: NewPairService) {
   }
 
-  retrieveTutorials(): void {
-    this.tutorialService.getAll().subscribe({
+  ngOnInit(): void {
+    this.getAll();
+  }
+
+  getAll(): void {
+    this.newPairService.getAll().subscribe({
       next: (data) => {
-        this.tutorials = data;
+        this.newPairModels = data;
         console.log(data);
       },
       error: (e) => console.error(e)
@@ -30,36 +31,9 @@ export class NewpairComponent implements OnInit {
   }
 
   refreshList(): void {
-    this.retrieveTutorials();
+    this.getAll();
     this.currentTutorial = {};
     this.currentIndex = -1;
   }
 
-  setActiveTutorial(tutorial: Tutorial, index: number): void {
-    this.currentTutorial = tutorial;
-    this.currentIndex = index;
-  }
-
-  removeAllTutorials(): void {
-    this.tutorialService.deleteAll().subscribe({
-      next: (res) => {
-        console.log(res);
-        this.refreshList();
-      },
-      error: (e) => console.error(e)
-    });
-  }
-
-  searchTitle(): void {
-    this.currentTutorial = {};
-    this.currentIndex = -1;
-
-    this.tutorialService.findByTitle(this.title).subscribe({
-      next: (data) => {
-        this.tutorials = data;
-        console.log(data);
-      },
-      error: (e) => console.error(e)
-    });
-  }
 }
