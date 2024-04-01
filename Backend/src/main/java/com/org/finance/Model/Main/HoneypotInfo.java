@@ -42,9 +42,6 @@ public class HoneypotInfo {
     @Column(name = "TRANSFER_TAX")
     private String transferTax;
 
-    @Column(name = "IS_HONEYPOT")
-    private Boolean isHoneypot;
-
     @Column(name = "HONEYPOT_REASON")
     private String honeypotReason;
 
@@ -60,6 +57,9 @@ public class HoneypotInfo {
 
     @Column(name = "IS_OPENSOURCE")
     private Boolean isOpensource;
+
+    @Column(name = "IS_HONEYPOT")
+    private Boolean isHoneypot;
 
     public HoneypotInfo() {
     }
