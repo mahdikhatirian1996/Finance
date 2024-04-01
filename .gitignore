@@ -7,5 +7,11 @@
 
 # Electron.js App
 /ElectronApp-Websocket/node_modules/
+/ElectronApp-Websocket/dist/
 /ElectronApp-Websocket/.idea/
 /ElectronApp-Websocket/package-lock.json
+
+# Angular App
+/View/node_modules/
+/View/.idea/
+/View/package-lock.json
