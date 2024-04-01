@@ -22,7 +22,7 @@ WebSocket.prototype.send = function (...e) {
                     updatedDate: pair?.updatedAt * 1000 ,
                     createdDate: pair?.createdAtTimestamp * 1000
                 });
-                fetch(`http://localhost:8080/api/dextools/getData/${(params)}`)
+                fetch(`http://localhost:8080/api/dextools/saveData/${(params)}`)
             }
         });
     }
