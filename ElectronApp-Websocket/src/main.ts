@@ -8,7 +8,7 @@ function createWindow() {
     const mainWindow = new BrowserWindow({
         height: 600,
         width: 800,
-        title: "dexTools App",
+        title: "DexTools Application",
     });
 
     mainWindow.loadURL('https://www.dextools.io/app/en/ether/pool-explorer');
