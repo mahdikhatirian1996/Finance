@@ -3,7 +3,7 @@
 
 # Backend (Spring-Boot App)
 /Backend/.idea/
-#/Backend/
+/Backend/target/
 
 # Electron.js App
 /ElectronApp-Websocket/node_modules/
