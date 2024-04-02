@@ -10,7 +10,7 @@ import java.util.List;
 public interface IHoneypotService {
     HoneypotInfo findByContractAddress(String contractAddress);
     JSONObject getDextoolsValidationInformationFromHoneypot(String contractAddress) throws IOException;
-    String convertPureObject(JSONObject pureObject);
+    String convertPureObject(JSONObject pureObject, String contractAddress);
     HoneypotInfo mapJSONObjectOnHoneypotInfo(String contractAddress) throws IOException;
     HoneypotInfo save(String contractAddress) throws IOException;
     List<HoneypotInfo> getListByDextoolsContractAddress(List<DextoolsInfo> dextoolsInfos);

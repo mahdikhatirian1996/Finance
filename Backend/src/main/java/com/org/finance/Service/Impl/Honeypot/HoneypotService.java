@@ -56,7 +56,7 @@ public class HoneypotService implements IHoneypotService {
     }
 
     @Override
-    public String convertPureObject(JSONObject pureObject) {
+    public String convertPureObject(JSONObject pureObject, String contractAddrress) {
         StringBuilder params = new StringBuilder(" {") ;
         Boolean haveHolderAnalysisJson = pureObject.getJSONObject("holderAnalysis").isEmpty();
 
@@ -71,7 +71,7 @@ public class HoneypotService implements IHoneypotService {
 
         params.append("\"currencyType\"").append(":\"").append(currencyTypeName).append("\", ")
         .append("\"name\"").append(":\"").append(tokenJson.getString("name")).append("\", ")
-        .append("\"contractAddress\"").append(":\"").append(tokenJson.getString("address")).append("\", ")
+        .append("\"contractAddress\"").append(":\"").append(contractAddrress).append("\", ")
         .append("\"isOpensource\"").append(":\"").append(contractCodeJson.getBoolean("openSource")).append("\", ")
         .append("\"isHoneypot\"").append(":\"").append(honeypotResultJson.getBoolean("isHoneypot")).append("\", ")
         .append("\"liquidity\"").append(":\"").append(pairJson.getDouble("liquidity")).append("\", ")
@@ -97,7 +97,7 @@ public class HoneypotService implements IHoneypotService {
     @Override
     public HoneypotInfo mapJSONObjectOnHoneypotInfo(String contractAddress) throws IOException {
         JSONObject pureObject = getDextoolsValidationInformationFromHoneypot(contractAddress);
-        String originObject = convertPureObject(pureObject);
+        String originObject = convertPureObject(pureObject, contractAddress);
         return new ObjectMapper().readValue(originObject, HoneypotInfo.class);
     }
 
