@@ -7,10 +7,15 @@ import com.org.finance.Model.Main.HoneypotInfo;
 import com.org.finance.Service.Dextools.IDextoolsService;
 import com.org.finance.Service.Honeypot.IHoneypotService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class DextoolsService implements IDextoolsService {
@@ -63,5 +68,12 @@ public class DextoolsService implements IDextoolsService {
         } else {
             return outOfTimeObject;
         }
+    }
+
+    @Override
+    public List<DextoolsInfo> findAll(Integer currentPage, Integer pageSize) {
+        Pageable pageable =
+                PageRequest.of(currentPage, pageSize, Sort.by("createdDate").descending());
+        return iDextoolsRepository.findAllByContractAddress(null, pageable);
     }
 }
