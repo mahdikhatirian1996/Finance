@@ -3,10 +3,14 @@ package com.org.finance.Service.Impl.Honeypot;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.org.finance.Dao.Honeypot.IHoneypotRepository;
 import com.org.finance.Model.Enum.CurrencyType;
+import com.org.finance.Model.Main.DextoolsInfo;
 import com.org.finance.Model.Main.HoneypotInfo;
 import com.org.finance.Service.Honeypot.IHoneypotService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -14,6 +18,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class HoneypotService implements IHoneypotService {
@@ -50,7 +56,7 @@ public class HoneypotService implements IHoneypotService {
     }
 
     @Override
-    public String convertPureObject(JSONObject pureObject) {
+    public String convertPureObject(JSONObject pureObject, String contractAddrress) {
         StringBuilder params = new StringBuilder(" {") ;
         Boolean haveHolderAnalysisJson = pureObject.getJSONObject("holderAnalysis").isEmpty();
 
@@ -65,7 +71,7 @@ public class HoneypotService implements IHoneypotService {
 
         params.append("\"currencyType\"").append(":\"").append(currencyTypeName).append("\", ")
         .append("\"name\"").append(":\"").append(tokenJson.getString("name")).append("\", ")
-        .append("\"contractAddress\"").append(":\"").append(tokenJson.getString("address")).append("\", ")
+        .append("\"contractAddress\"").append(":\"").append(contractAddrress).append("\", ")
         .append("\"isOpensource\"").append(":\"").append(contractCodeJson.getBoolean("openSource")).append("\", ")
         .append("\"isHoneypot\"").append(":\"").append(honeypotResultJson.getBoolean("isHoneypot")).append("\", ")
         .append("\"liquidity\"").append(":\"").append(pairJson.getDouble("liquidity")).append("\", ")
@@ -91,7 +97,7 @@ public class HoneypotService implements IHoneypotService {
     @Override
     public HoneypotInfo mapJSONObjectOnHoneypotInfo(String contractAddress) throws IOException {
         JSONObject pureObject = getDextoolsValidationInformationFromHoneypot(contractAddress);
-        String originObject = convertPureObject(pureObject);
+        String originObject = convertPureObject(pureObject, contractAddress);
         return new ObjectMapper().readValue(originObject, HoneypotInfo.class);
     }
 
@@ -100,4 +106,14 @@ public class HoneypotService implements IHoneypotService {
         HoneypotInfo entity = iHoneypotRepository.save(mapJSONObjectOnHoneypotInfo(contractAddress));
         return iHoneypotRepository.save(entity);
     }
+
+    @Override
+    public List<HoneypotInfo> getListByDextoolsContractAddress(List<DextoolsInfo> dextoolsInfos) {
+            List<HoneypotInfo> honeypotInfos = new ArrayList<>();
+            for (DextoolsInfo object : dextoolsInfos) {
+                honeypotInfos.add(iHoneypotRepository.findByContractAddress(object.getContractAddress()));
+            }
+            return honeypotInfos;
+    }
+
 }
