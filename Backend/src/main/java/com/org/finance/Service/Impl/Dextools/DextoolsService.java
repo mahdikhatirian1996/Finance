@@ -74,6 +74,6 @@ public class DextoolsService implements IDextoolsService {
     public List<DextoolsInfo> findAll(Integer currentPage, Integer pageSize) {
         Pageable pageable =
                 PageRequest.of(currentPage, pageSize, Sort.by("createdDate").descending());
-        return iDextoolsRepository.findAllByContractAddress(null, pageable);
+        return iDextoolsRepository.findAll(pageable).getContent();
     }
 }

@@ -1,7 +1,6 @@
 package com.org.finance.Dao.Dextools;
 
 import com.org.finance.Model.Main.DextoolsInfo;
-import com.org.finance.Model.Main.HoneypotInfo;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;

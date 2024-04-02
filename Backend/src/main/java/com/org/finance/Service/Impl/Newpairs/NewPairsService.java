@@ -44,6 +44,7 @@ public class NewPairsService implements INewPairsService {
 
     @Override
     public NewpairDto mapObjectListToEntity(NewpairDto dto, DextoolsInfo dextoolsInfo, HoneypotInfo honeypotInfo) {
+        dto.setContractAddress(dextoolsInfo.getContractAddress());
         dto.setNameDI(dextoolsInfo.getName());
         dto.setHoldersDI(dextoolsInfo.getHolders());
         dto.setLiquidityDI(dextoolsInfo.getLiquidity());
@@ -53,7 +54,7 @@ public class NewPairsService implements INewPairsService {
         dto.setNameHI(honeypotInfo.getName());
         dto.setHoldersHI(honeypotInfo.getHolders());
         dto.setLiquidityHI(honeypotInfo.getLiquidity());
-        dto.setCreatedDateHI(Timestamp.valueOf(honeypotInfo.getCreatedDate() + "000").getTime());
+        dto.setCreatedDateHI(Long.valueOf(honeypotInfo.getCreatedDate()));
         dto.setAverageTax(honeypotInfo.getAverageTax());
         dto.setAverageGas(honeypotInfo.getAverageGas());
         dto.setBuyTax(honeypotInfo.getBuyTax());
