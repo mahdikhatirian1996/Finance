@@ -43,24 +43,30 @@
           <br> DI: {{ newPair.createdDateDITimestamp?.replace('T', ' ') }}
         </td>
         <td class="text-nowrap">
-          A: {{ newPair.averageGas }}
-          <br>B: {{ newPair.buyGas }}
-          <br>S: {{ newPair.sellGas }}
+          Ave. : {{ newPair.averageGas }}
+          <br>Buy: {{ newPair.buyGas }}
+          <br>Sell: {{ newPair.sellGas }}
         </td>
         <td class="text-nowrap">
-          A: {{ newPair.averageTax }}
-          <br>B: {{ newPair.buyTax }}
-          <br>S: {{ newPair.sellTax }}
-          <br>T:{{ newPair.transferTax }}
+          Ave. : {{ newPair.averageTax }}
+          <br>Buy: {{ newPair.buyTax }}
+          <br>Sell: {{ newPair.sellTax }}
+          <br>Tax: {{ newPair.transferTax }}
         </td>
         <td class="text-nowrap">
           {{ newPair.currencyTypeName }}
         </td>
-        <td class="text-nowrap">
-          {{ newPair.isOpensource }}
+        <td class="text-nowrap" *ngIf="newPair.isOpensource">
+          Open-Source
         </td>
-        <td class="text-nowrap">
-          {{ newPair.isHoneypot }}
+        <td class="text-nowrap" *ngIf="!newPair.isOpensource">
+          Not Open-Source
+        </td>
+        <td class="text-nowrap bg-danger btn" *ngIf="!newPair.isHoneypot">
+          Failed
+        </td>
+        <td class="text-nowrap bg-success btn" *ngIf="newPair.isHoneypot">
+          Passed
         </td>
       </tr>
       </tbody>

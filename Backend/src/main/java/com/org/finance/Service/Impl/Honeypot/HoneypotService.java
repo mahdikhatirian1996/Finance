@@ -56,7 +56,7 @@ public class HoneypotService implements IHoneypotService {
     }
 
     @Override
-    public String convertPureObject(JSONObject pureObject, String contractAddrress) {
+    public String convertPureObject(JSONObject pureObject, String contractAddress) {
         StringBuilder params = new StringBuilder(" {") ;
         Boolean haveHolderAnalysisJson = pureObject.getJSONObject("holderAnalysis").isEmpty();
 
@@ -71,7 +71,7 @@ public class HoneypotService implements IHoneypotService {
 
         params.append("\"currencyType\"").append(":\"").append(currencyTypeName).append("\", ")
         .append("\"name\"").append(":\"").append(tokenJson.getString("name")).append("\", ")
-        .append("\"contractAddress\"").append(":\"").append(contractAddrress).append("\", ")
+        .append("\"contractAddress\"").append(":\"").append(contractAddress).append("\", ")
         .append("\"isOpensource\"").append(":\"").append(contractCodeJson.getBoolean("openSource")).append("\", ")
         .append("\"isHoneypot\"").append(":\"").append(honeypotResultJson.getBoolean("isHoneypot")).append("\", ")
         .append("\"liquidity\"").append(":\"").append(pairJson.getDouble("liquidity")).append("\", ")
