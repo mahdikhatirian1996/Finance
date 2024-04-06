@@ -1,0 +1,5 @@
+<div class="pagination">
+  <button class="bg-secondary border-dark" style="border-radius: 10%" (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1"> Previous </button>
+  <span><pre style="font-size: medium">Total: {{totalItems}},  Page {{ currentPage }} of {{ totalPages }}  </pre></span>
+  <button class="bg-secondary border-dark" style="border-radius: 10%" (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages"> Next </button>
+</div>

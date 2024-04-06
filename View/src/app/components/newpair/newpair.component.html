@@ -1,56 +1,108 @@
-<table>
-  <thead>
-  <tr>
-    <th>contractAddress</th>
-    <th>nameHI</th>
-    <th>holdersHI</th>
-    <th>liquidityHI</th>
-    <th>createdDateHI</th>
-    <th>averageTax</th>
-    <th>averageGas</th>
-    <th>buyTax</th>
-    <th>buyGas</th>
-    <th>sellTax</th>
-    <th>sellGas</th>
-    <th>transferTax</th>
-    <th>honeypotReason</th>
-    <th>currencyTypeName</th>
-    <th>isHoneypot</th>
-    <th>isOpensource</th>
-    <th>currencyTypeIndex</th>
-    <th>nameDI</th>
-    <th>holdersDI</th>
-    <th>liquidityDI</th>
-    <th>createdDateDI</th>
-    <th>symbol</th>
-    <th>updatedDate</th>
-  </tr>
-  </thead>
-  <thead>
-  <tr *ngFor="let newPair of newPairModels">
-    <td>{{newPair.contractAddress}}</td>
-    <td>{{newPair.nameHI}}</td>
-    <td>{{newPair.holdersHI}}</td>
-    <td>{{newPair.liquidityHI}}</td>
-    <td>{{newPair.createdDateHI}}</td>
-    <td>{{newPair.averageTax}}</td>
-    <td>{{newPair.averageGas}}</td>
-    <td>{{newPair.buyTax}}</td>
-    <td>{{newPair.buyGas}}</td>
-    <td>{{newPair.sellTax}}</td>
-    <td>{{newPair.sellGas}}</td>
-    <td>{{newPair.transferTax}}</td>
-    <td>{{newPair.honeypotReason}}</td>
-    <td>{{newPair.currencyTypeName}}</td>
-    <td>{{newPair.isHoneypot}}</td>
-    <td>{{newPair.isOpensource}}</td>
-    <td>{{newPair.currencyTypeIndex}}</td>
-    <td>{{newPair.nameDI}}</td>
-    <td>{{newPair.holdersDI}}</td>
-    <td>{{newPair.liquidityDI}}</td>
-    <td>{{newPair.createdDateDI}}</td>
-    <td>{{newPair.symbol}}</td>
-    <td>{{newPair.updatedDate}}</td>
-  </tr>
-  </thead>
-</table>
+<div>
+  <div class="row table-responsive mb-5">
+    <table class="table table-hover border-primary figure-caption">
+      <caption>
+        *DI: Dextools Information, HI: Honeypot Information <br>
+        *Gas-Option: AverageGas, BuyGas, SellGas <br>
+        *Tax-Option: AverageTax, BuyTax, SellTax, TransferTax <br>
+      </caption>
+      <thead>
+      <tr>
+        <th class="text-nowrap">Contract Address</th>
+        <th class="text-nowrap">Name & Symbol</th>
+        <th class="text-nowrap">Holders</th>
+        <th class="text-nowrap">Liquidity</th>
+        <th class="text-nowrap">Create dDate</th>
+        <th class="text-nowrap">Gas Option</th>
+        <th class="text-nowrap">Tax Option</th>
+        <th class="text-nowrap">CurrencyType Name</th>
+        <th class="text-nowrap">IsOpensource</th>
+        <th class="text-nowrap">IsHoneypot</th>
+      </tr>
+      </thead>
+      <tbody class="table-group-divider table-divider-color">
+      <tr *ngFor="let newPair of newPairModels">
+        <td class="text-nowrap" style="cursor: grab" appCopyText copyText="{{newPair.contractAddress}}">
+          Click To Copy : {{ newPair.contractAddress?.slice(0, 6) }}...
+        </td>
+        <td class="text-nowrap">
+          HI: {{ newPair.nameHI }}
+          <br> DI: {{ newPair.nameDI }}
+          <br> Symbol: {{ newPair.symbol }}
+        </td>
+        <td class="text-nowrap">
+          HI: {{ newPair.holdersHI }}
+          <br> DI: {{ newPair.holdersDI }}
+        </td>
+        <td class="text-nowrap">
+          HI: {{ newPair.liquidityHI }}
+          <br> DI: {{ newPair.liquidityDI }}
+        </td>
+        <td class="text-nowrap">
+          HI: {{ newPair.createdDateHITimestamp?.replace('T', ' ') }}
+          <br> DI: {{ newPair.createdDateDITimestamp?.replace('T', ' ') }}
+        </td>
+        <td class="text-nowrap">
+          Ave. : {{ newPair.averageGas }}
+          <br>Buy: {{ newPair.buyGas }}
+          <br>Sell: {{ newPair.sellGas }}
+        </td>
+        <td class="text-nowrap">
+          Ave. : {{ newPair.averageTax }}
+          <br>Buy: {{ newPair.buyTax }}
+          <br>Sell: {{ newPair.sellTax }}
+          <br>Tax: {{ newPair.transferTax }}
+        </td>
+        <td class="text-nowrap">
+          {{ newPair.currencyTypeName }}
+        </td>
+        <td class="text-nowrap" *ngIf="newPair.isOpensource">
+          Open-Source
+        </td>
+        <td class="text-nowrap" *ngIf="!newPair.isOpensource">
+          Not Open-Source
+        </td>
+        <td class="text-nowrap bg-danger btn" *ngIf="!newPair.isHoneypot">
+          Failed
+        </td>
+        <td class="text-nowrap bg-success btn" *ngIf="newPair.isHoneypot">
+          Passed
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-4 row">
+      <div class="col-sm-5 text-center">
+        <input type="checkbox" id="chkHasInterval" [checked]="hasInterval"
+               (change)="changeHasInterval()">
+        <label class="form-check-label" for="chkHasInterval">Auto Reload</label>
+      </div>
+      <div class="col-sm-4 text-center">
+        <button class="btn btn-secondary" (click)="refreshList()">Reload</button>
+      </div>
+    </div>
+    <div class="col-sm-1"></div>
+    <div class="col-sm-5">
+      <app-pagination
+        [currentPage]="currentPage"
+        [itemsPerPage]="itemsPerPage"
+        [totalItems]="totalItems"
+        (pageChanged)="onPageChange($event)">
+      </app-pagination>
+    </div>
+  </div>
+</div>
+<!--
+<table mat-table [dataSource]="dataSource">
+      <ng-container *ngFor="let col of displayColumns" matColumnDef="{{col}}">
+        <th mat-header-cell *matHeaderCellDef> {{ col }}</th>
+        <td mat-cell *matCellDef="let element"> {{ element[col] }}</td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayColumns"></tr>
+    </table>
+    <table>
+-->

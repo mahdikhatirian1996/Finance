@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -23,23 +24,25 @@ public class NewPairsService implements INewPairsService {
     private IHoneypotService iHoneypotService;
 
     @Override
-    public List<NewpairDto> getAll(Integer currentPage, Integer pageSize) {
+    public HashMap<String, Object> getAll(Integer currentPage, Integer pageSize) {
         return setDIAndHiOnDtos(currentPage, pageSize);
     }
 
     @Override
-    public List<NewpairDto> setDIAndHiOnDtos(Integer currentPage, Integer pageSize) {
+    public HashMap<String, Object> setDIAndHiOnDtos(Integer currentPage, Integer pageSize) {
         List<NewpairDto> newpairDtos = new ArrayList<>();
-        List<DextoolsInfo> dInfos = iDextoolsService.findAll(currentPage, pageSize);
-        List<HoneypotInfo> hInfos = iHoneypotService.getListByDextoolsContractAddress(dInfos);
-        for (int i = 0; i < dInfos.size(); i++) {
+        HashMap<String, Object> params = iDextoolsService.findAll(currentPage, pageSize);
+        List<DextoolsInfo> dextoolsInfos = (List<DextoolsInfo>) params.get("list");
+        List<HoneypotInfo> hInfos = iHoneypotService.getListByDextoolsContractAddress(dextoolsInfos);
+        for (int i = 0; i < dextoolsInfos.size(); i++) {
             newpairDtos.add(this.mapObjectListToEntity(
                     new NewpairDto(),
-                    dInfos.get(i),
+                    dextoolsInfos.get(i),
                     hInfos.get(i)
             ));
         }
-        return newpairDtos;
+        params.put("list", newpairDtos);
+        return params;
     }
 
     @Override

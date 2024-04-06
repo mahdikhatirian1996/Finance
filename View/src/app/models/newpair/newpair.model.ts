@@ -5,6 +5,7 @@ export class NewPairModel {
   holdersHI?: string;
   liquidityHI?: string;
   createdDateHI?: string;
+  createdDateHITimestamp?: string;
   averageTax?: string;
   averageGas?: string;
   buyTax?: string;
@@ -22,6 +23,7 @@ export class NewPairModel {
   holdersDI?: string;
   liquidityDI?: string;
   createdDateDI?: number;
+  createdDateDITimestamp?: string;
   symbol?: string;
   updatedDate?: number;
 }
