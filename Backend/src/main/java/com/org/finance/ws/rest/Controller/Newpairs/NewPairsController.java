@@ -5,11 +5,9 @@ import com.org.finance.Service.Newpairs.INewPairsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -21,7 +19,7 @@ public class NewPairsController {
     private INewPairsService newPairsService;
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<NewpairDto>> getAll() {
-        return new ResponseEntity<>(newPairsService.getAll(0, 10), HttpStatus.OK);
+    public ResponseEntity<HashMap<String, Object>> getAll(@RequestParam Integer currentPage, @RequestParam Integer pageSize) {
+        return new ResponseEntity<>(newPairsService.getAll(currentPage,pageSize), HttpStatus.OK);
     }
 }
