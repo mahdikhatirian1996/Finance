@@ -1,5 +1,5 @@
 <div>
-  <div class="row table-responsive mb-5">
+  <div class="row mb-5">
     <table class="table table-hover border-primary figure-caption">
       <caption>
         *DI: Dextools Information, HI: Honeypot Information <br>
@@ -12,7 +12,8 @@
         <th class="text-nowrap">Name & Symbol</th>
         <th class="text-nowrap">Holders</th>
         <th class="text-nowrap">Liquidity</th>
-        <th class="text-nowrap">Create dDate</th>
+        <th class="text-nowrap">Created Date</th>
+        <th class="text-nowrap">Inserted Date</th>
         <th class="text-nowrap">Gas Option</th>
         <th class="text-nowrap">Tax Option</th>
         <th class="text-nowrap">CurrencyType Name</th>
@@ -43,6 +44,9 @@
           <br> DI: {{ newPair.createdDateDITimestamp?.replace('T', ' ') }}
         </td>
         <td class="text-nowrap">
+          HI: {{ newPair.insertedDateTimestamp?.replace('T', ' ') }}
+        </td>
+        <td class="text-nowrap">
           Ave. : {{ newPair.averageGas }}
           <br>Buy: {{ newPair.buyGas }}
           <br>Sell: {{ newPair.sellGas }}
@@ -51,7 +55,7 @@
           Ave. : {{ newPair.averageTax }}
           <br>Buy: {{ newPair.buyTax }}
           <br>Sell: {{ newPair.sellTax }}
-          <br>Tax: {{ newPair.transferTax }}
+          <br>Transfer: {{ newPair.transferTax }}
         </td>
         <td class="text-nowrap">
           {{ newPair.currencyTypeName }}
@@ -62,10 +66,10 @@
         <td class="text-nowrap" *ngIf="!newPair.isOpensource">
           Not Open-Source
         </td>
-        <td class="text-nowrap bg-danger btn" *ngIf="!newPair.isHoneypot">
+        <td class="text-nowrap bg-danger btn" *ngIf="newPair.isHoneypot">
           Failed
         </td>
-        <td class="text-nowrap bg-success btn" *ngIf="newPair.isHoneypot">
+        <td class="text-nowrap bg-success btn" *ngIf="!newPair.isHoneypot">
           Passed
         </td>
       </tr>
@@ -94,6 +98,7 @@
       </app-pagination>
     </div>
   </div>
+  <br><br>
 </div>
 <!--
 <table mat-table [dataSource]="dataSource">

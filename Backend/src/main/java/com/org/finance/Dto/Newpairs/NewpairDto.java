@@ -17,6 +17,7 @@ public class NewpairDto {
     public Long createdDateDI;
     public String symbol;
     public Long updatedDate;
+    public Long insertedDate;
     // --- honeypotInfo ---
     public String nameHI;
     public String holdersHI;

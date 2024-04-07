@@ -54,6 +54,7 @@ public class NewPairsService implements INewPairsService {
         dto.setCreatedDateDI(dextoolsInfo.getCreatedDate().getTime());
         dto.setSymbol(dextoolsInfo.getSymbol());
         dto.setUpdatedDate(dextoolsInfo.getUpdatedDate().getTime());
+        dto.setInsertedDate(dextoolsInfo.getInsertedDate().getTime());
         dto.setNameHI(honeypotInfo.getName());
         dto.setHoldersHI(honeypotInfo.getHolders());
         dto.setLiquidityHI(honeypotInfo.getLiquidity());

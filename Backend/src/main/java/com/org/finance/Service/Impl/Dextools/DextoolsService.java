@@ -54,7 +54,7 @@ public class DextoolsService implements IDextoolsService {
 
     @Override
     public DextoolsInfo save(DextoolsInfo entity) throws IOException {
-        if (isGreaterThanSpecificHour(entity.getCreatedDate(), 2)) {
+        if (isGreaterThanSpecificHour(entity.getCreatedDate(), 1)) {
             if (
                     iDextoolsRepository.findByContractAddress(entity.getContractAddress()) == null &&
                     iHoneypotService.findByContractAddress(entity.getContractAddress()) == null
@@ -63,6 +63,7 @@ public class DextoolsService implements IDextoolsService {
                 if (entity.getName() == null) {
                     entity.setName(honeypotInfo.getName());
                 }
+                entity.setInsertedDate(new Timestamp(System.currentTimeMillis()));
                 return iDextoolsRepository.save(entity);
             } else {
                 return repeatedObject;

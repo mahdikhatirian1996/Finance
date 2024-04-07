@@ -62,10 +62,16 @@ export class NewpairComponent implements OnInit, OnDestroy {
   setTimestamp(): void {
     for (let i = 0; i < this.newPairModels.length; i++) {
       if (this.newPairModels || this.newPairModels[i].createdDateDI !== null) {
-        this.newPairModels[i].createdDateDITimestamp = new Date(this.newPairModels[i].createdDateDI).toISOString();
+        this.newPairModels[i].createdDateDITimestamp =
+          new Date(this.newPairModels[i].createdDateDI).toLocaleDateString() + " -- " + new Date(this.newPairModels[i].createdDateDI).toLocaleTimeString();
       }
       if (this.newPairModels || this.newPairModels[i].createdDateHI !== null) {
-        this.newPairModels[i].createdDateHITimestamp = new Date(this.newPairModels[i].createdDateHI).toISOString();
+        this.newPairModels[i].createdDateHITimestamp =
+          new Date(this.newPairModels[i].createdDateDI).toLocaleDateString() + " -- " + new Date(this.newPairModels[i].createdDateDI).toLocaleTimeString();
+      }
+      if (this.newPairModels || this.newPairModels[i].insertedDate) {
+        this.newPairModels[i].insertedDateTimestamp =
+          new Date(this.newPairModels[i].insertedDate).toLocaleDateString() + " -- " + new Date(this.newPairModels[i].insertedDate).toLocaleTimeString();
       }
     }
   }
