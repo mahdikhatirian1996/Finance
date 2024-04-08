@@ -13,10 +13,10 @@ public enum CurrencyType {
     private final String persianTitle;
     private final String honeypotTitle; // READ THIS FIELD FROM {CHAIN : CURRENCY} JSON
 
-    CurrencyType(Integer index, String persianTitle, String englishTitle) {
+    CurrencyType(Integer index, String persianTitle, String honeypotTitle) {
         this.index = index;
         this.persianTitle = persianTitle;
-        this.honeypotTitle = englishTitle;
+        this.honeypotTitle = honeypotTitle;
     }
 
     public static String getEnumNameFromTitle(String honeypotTitle) {

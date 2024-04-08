@@ -11,6 +11,12 @@
 /ElectronApp-Websocket/.idea/
 /ElectronApp-Websocket/package-lock.json
 
+# Electron.js()Eth App
+/ElectronApp(Ethereum)/node_modules/
+/ElectronApp(Ethereum)/dist/
+/ElectronApp(Ethereum)/.idea/
+/ElectronApp(Ethereum)/package-lock.json
+
 # Angular App
 /View/node_modules/
 /View/.idea/
