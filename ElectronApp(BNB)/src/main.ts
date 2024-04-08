@@ -11,7 +11,7 @@ function createWindow() {
         title: "DexTools Application",
     });
 
-    mainWindow.loadURL('https://www.dextools.io/app/en/ether/pool-explorer');
+    mainWindow.loadURL('https://www.dextools.io/app/en/bnb/pool-explorer');
     mainWindow.webContents.session.webRequest.onHeadersReceived({urls: ["*://*/*"]},
         (details, callback) => {
             if (details.responseHeaders['X-Frame-Options']) {
