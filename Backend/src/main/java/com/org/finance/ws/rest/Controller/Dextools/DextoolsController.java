@@ -1,6 +1,7 @@
 package com.org.finance.ws.rest.Controller.Dextools;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.org.finance.Dto.Dextools.DextoolsInfoDto;
 import com.org.finance.Model.Main.DextoolsInfo;
 import com.org.finance.Service.Dextools.IDextoolsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class DextoolsController {
     IDextoolsService iDextoolsService;
 
     @GetMapping("/saveData/{params}")
-    public void getData(
+    public void saveData(
         @PathVariable("params") String params
     ) throws Exception {
         try {
@@ -27,7 +28,6 @@ public class DextoolsController {
                             DextoolsInfo.class
                     )
             );
-            // TODO: Find Name In Another Json Key OK
             if (savedObject.getContractAddress() != null) {
                 System.out.println("Save At : " + new Timestamp(System.currentTimeMillis()) + " => This Object" + params);
             } else {
@@ -35,7 +35,18 @@ public class DextoolsController {
             }
         } catch (Exception e) {
             System.out.println("Exception Occur On : " + e.getMessage());
-            // TODO: 1) Handle This => (exception : JSONObject["holderAnalysis"] not found.)
         }
     }
+
+    @ResponseBody
+    @PostMapping("/saveData/solana")
+    public void saveSolanaData(@RequestBody DextoolsInfoDto dto){
+        System.out.println(dto);
+    }
+    @ResponseBody
+    @PostMapping("/saveData/base")
+    public void saveBaseData(@RequestBody DextoolsInfoDto dto){
+        System.out.println(dto);
+    }
+
 }
