@@ -14,7 +14,7 @@ WebSocket.prototype.send = function (...e) {
             let liquidity = data.pair?.liquidity;
             let exists = window.pairs.some((pair) => pair.address === address);
             if (address && data.event && !exists) {
-                fetch(`http://localhost:8080/api/dextools/postData/base`, {
+                fetch(`http://localhost:8080/api/dextools/saveData/base`, {
                     method: `POST`,
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({
