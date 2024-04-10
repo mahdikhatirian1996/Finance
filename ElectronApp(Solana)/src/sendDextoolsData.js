@@ -8,13 +8,13 @@ WebSocket.prototype.send = function (...e) {
             let message = JSON.parse(event.data);
             let data = message.result.data;
             let info = data.pair?.info;
+            let address = info?.address;
             let createdAt = data.pair?.createdAt;
             let updatedAt = data.pair?.updatedAt;
             let liquidity = data.pair?.liquidity;
-            let address = info?.address;
             let exists = window.pairs.some((pair) => pair.address === address);
             if (address && data.event && !exists) {
-                fetch(`http://localhost:8080/api/dextools/postData`, {
+                fetch(`http://localhost:8080/api/dextools/postData/solana`, {
                     method: `POST`,
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({
