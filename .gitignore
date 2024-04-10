@@ -10,24 +10,28 @@
 /ElectronApp(Ethereum)/dist/
 /ElectronApp(Ethereum)/.idea/
 /ElectronApp(Ethereum)/package-lock.json
+/ElectronApp(Ethereum)/*.iml
 
 # Electron.js BNB App
 /ElectronApp(BNB)/node_modules/
 /ElectronApp(BNB)/dist/
 /ElectronApp(BNB)/.idea/
 /ElectronApp(BNB)/package-lock.json
+/ElectronApp(BNB)/*.iml
 
 # Electron.js Solana App
 /ElectronApp(Solana)/node_modules/
 /ElectronApp(Solana)/dist/
 /ElectronApp(Solana)/.idea/
 /ElectronApp(Solana)/package-lock.json
+/ElectronApp(Solana)/*.iml
 
 # Electron.js Base App
 /ElectronApp(Base)/node_modules/
 /ElectronApp(Base)/dist/
 /ElectronApp(Base)/.idea/
 /ElectronApp(Base)/package-lock.json
+/ElectronApp(Base)/*.iml
 
 # Angular App
 /View/node_modules/
