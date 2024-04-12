@@ -79,17 +79,35 @@ export class NewpairComponent implements OnInit, OnDestroy {
   roundingNumber() {
     for (let i = 0; i < this.newPairModels.length; i++) {
       if (this.newPairModels) {
-        this.newPairModels[i].liquidityHI =
-          this.newPairModels[i].liquidityHI.split(".")[0] + "." + this.newPairModels[i].liquidityHI.split(".")[1].slice(0, 2);
-        this.newPairModels[i].liquidityDI =
-          this.newPairModels[i].liquidityDI.split(".")[0] + "." + this.newPairModels[i].liquidityDI.split(".")[1].slice(0, 2);
-        this.newPairModels[i].averageGas = this.newPairModels[i].averageGas.split(".")[0];
-        this.newPairModels[i].buyGas = this.newPairModels[i].buyGas.split(".")[0];
-        this.newPairModels[i].sellGas = this.newPairModels[i].sellGas.split(".")[0];
-        this.newPairModels[i].averageTax = this.newPairModels[i].averageTax.split(".")[0];
-        this.newPairModels[i].buyTax = this.newPairModels[i].buyTax.split(".")[0];
-        this.newPairModels[i].sellTax = this.newPairModels[i].sellTax.split(".")[0];
-        this.newPairModels[i].transferTax = this.newPairModels[i].transferTax.split(".")[0];
+        if (this.newPairModels[i].liquidityHI !== null) {
+          this.newPairModels[i].liquidityHI =
+            this.newPairModels[i].liquidityHI.split(".")[0] + "." + this.newPairModels[i].liquidityHI.split(".")[1].slice(0, 2);
+        }
+        if (this.newPairModels[i].liquidityDI !== null) {
+          this.newPairModels[i].liquidityDI =
+            this.newPairModels[i].liquidityDI.split(".")[0] + "." + this.newPairModels[i].liquidityDI.split(".")[1].slice(0, 2);
+        }
+        if (this.newPairModels[i].averageGas !== null) {
+          this.newPairModels[i].averageGas = this.newPairModels[i].averageGas.split(".")[0];
+        }
+        if (this.newPairModels[i].buyGas !== null) {
+          this.newPairModels[i].buyGas = this.newPairModels[i].buyGas.split(".")[0];
+        }
+        if (this.newPairModels[i].sellGas !== null) {
+          this.newPairModels[i].sellGas = this.newPairModels[i].sellGas.split(".")[0];
+        }
+        if (this.newPairModels[i].averageTax !== null) {
+          this.newPairModels[i].averageTax = this.newPairModels[i].averageTax.split(".")[0];
+        }
+        if (this.newPairModels[i].buyTax !== null) {
+          this.newPairModels[i].buyTax = this.newPairModels[i].buyTax.split(".")[0];
+        }
+        if (this.newPairModels[i].sellTax !== null) {
+          this.newPairModels[i].sellTax = this.newPairModels[i].sellTax.split(".")[0];
+        }
+        if (this.newPairModels[i].transferTax !== null) {
+          this.newPairModels[i].transferTax = this.newPairModels[i].transferTax.split(".")[0];
+        }
       }
     }
   }
