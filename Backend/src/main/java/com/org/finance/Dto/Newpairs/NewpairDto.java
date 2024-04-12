@@ -14,9 +14,11 @@ public class NewpairDto {
     public String nameDI;
     public String holdersDI;
     public String liquidityDI;
+    public String totalSupply;
     public Long createdDateDI;
     public String symbol;
     public Long updatedDate;
+    public Long insertedDate;
     // --- honeypotInfo ---
     public String nameHI;
     public String holdersHI;

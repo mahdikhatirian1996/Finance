@@ -1,11 +1,6 @@
 <div style="padding: 5%">
   <div class="row mb-5">
-    <table class="table table-hover border-primary figure-caption">
-      <caption>
-        *DI: Dextools Information, HI: Honeypot Information <br>
-        *Gas-Option: AverageGas, BuyGas, SellGas <br>
-        *Tax-Option: AverageTax, BuyTax, SellTax, TransferTax <br>
-      </caption>
+    <table class="table table-hover border-primary">
       <thead>
       <tr>
         <th class="text-nowrap">Contract Address</th>
@@ -14,12 +9,8 @@
         <th class="text-nowrap">Liquidity</th>
         <th class="text-nowrap">Created Date</th>
         <th class="text-nowrap">Inserted Date</th>
-        <th class="text-nowrap">Gas Option</th>
-        <th class="text-nowrap">Tax Option</th>
+        <th class="text-nowrap">Total Supply</th>
         <th class="text-nowrap">CurrencyType</th>
-        <th class="text-nowrap">Verified</th>
-        <th class="text-nowrap">IsOpensource</th>
-        <th class="text-nowrap">IsHoneypot</th>
       </tr>
       </thead>
       <tbody class="table-group-divider table-divider-color">
@@ -28,56 +19,29 @@
           Click To Copy : {{ newPair.contractAddress?.slice(0, 6) }}...
         </td>
         <td class="text-nowrap">
-          HI: {{ newPair.nameHI }}
-          <br> DI: {{ newPair.nameDI }}
+          Name: {{ newPair.nameDI }}
           <br> Symbol: {{ newPair.symbol }}
         </td>
         <td class="text-nowrap">
-          HI: {{ newPair.holdersHI }}
-          <br> DI: {{ newPair.holdersDI }}
+          {{ newPair.holdersDI }}
+        </td>
+        <td class="text-nowrap" *ngIf="newPair.liquidityDI != 'null'">
+          {{ newPair.liquidityDI }}
+        </td>
+        <td class="text-nowrap" *ngIf="newPair.liquidityDI == 'null'">
+          0
         </td>
         <td class="text-nowrap">
-          HI: {{ newPair.liquidityHI }}
-          <br> DI: {{ newPair.liquidityDI }}
+          {{ newPair.createdDateDITimestamp?.replace('T', ' ') }}
         </td>
         <td class="text-nowrap">
-          HI: {{ newPair.createdDateHITimestamp?.replace('T', ' ') }}
-          <br> DI: {{ newPair.createdDateDITimestamp?.replace('T', ' ') }}
+          {{ newPair.insertedDateTimestamp?.replace('T', ' ') }}
         </td>
         <td class="text-nowrap">
-          HI: {{ newPair.insertedDateTimestamp?.replace('T', ' ') }}
-        </td>
-        <td class="text-nowrap">
-          Ave. : {{ newPair.averageGas }}
-          <br>Buy: {{ newPair.buyGas }}
-          <br>Sell: {{ newPair.sellGas }}
-        </td>
-        <td class="text-nowrap">
-          Ave. : {{ newPair.averageTax }}
-          <br>Buy: {{ newPair.buyTax }}
-          <br>Sell: {{ newPair.sellTax }}
-          <br>Transfer: {{ newPair.transferTax }}
+          {{ newPair.totalSupply }}
         </td>
         <td class="text-nowrap">
           {{ newPair.currencyTypeName }}
-        </td>
-        <td class="text-nowrap bg-success btn mt-4" *ngIf="!newPair.isHoneypot && newPair.isOpensource">
-          Verified
-        </td>
-        <td class="text-nowrap bg-danger btn mt-4" *ngIf="!(!newPair.isHoneypot && newPair.isOpensource)">
-          Not Verified
-        </td>
-        <td class="text-nowrap" *ngIf="newPair.isOpensource">
-          Open-Source
-        </td>
-        <td class="text-nowrap" *ngIf="!newPair.isOpensource">
-          Not Open-Source
-        </td>
-        <td class="text-nowrap" *ngIf="newPair.isHoneypot">
-          Honeypot
-        </td>
-        <td class="text-nowrap" *ngIf="!newPair.isHoneypot">
-          Not Honeypot
         </td>
       </tr>
       </tbody>

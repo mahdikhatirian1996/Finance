@@ -26,4 +26,6 @@ export class NewPairModel {
   createdDateDITimestamp?: string;
   symbol?: string;
   updatedDate?: number;
+  insertedDate?: number;
+  insertedDateTimestamp?: string;
 }

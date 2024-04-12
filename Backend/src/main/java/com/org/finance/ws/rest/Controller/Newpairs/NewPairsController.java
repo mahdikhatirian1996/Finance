@@ -19,7 +19,22 @@ public class NewPairsController {
     private INewPairsService newPairsService;
 
     @GetMapping("/getAll")
-    public ResponseEntity<HashMap<String, Object>> getAll(@RequestParam Integer currentPage, @RequestParam Integer pageSize) {
-        return new ResponseEntity<>(newPairsService.getAll(currentPage,pageSize), HttpStatus.OK);
+    public ResponseEntity<HashMap<String, Object>> getAll(
+            @RequestParam Integer currentPage, @RequestParam Integer pageSize
+    ) {
+        return new ResponseEntity<>(
+                newPairsService.getAll(currentPage,pageSize),
+                HttpStatus.OK
+        );
+    }
+
+    @GetMapping("/getAll/withoutHoneypot")
+    public ResponseEntity<HashMap<String, Object>> getAllWithoutHoneypot(
+            @RequestParam Integer currentPage, @RequestParam Integer pageSize
+    ) {
+        return new ResponseEntity<>(
+                newPairsService.getAllWithoutHoneypot(currentPage,pageSize),
+                HttpStatus.OK
+        );
     }
 }

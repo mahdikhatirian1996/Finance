@@ -5,13 +5,36 @@
 /Backend/.idea/
 /Backend/target/
 
-# Electron.js App
-/ElectronApp-Websocket/node_modules/
-/ElectronApp-Websocket/dist/
-/ElectronApp-Websocket/.idea/
-/ElectronApp-Websocket/package-lock.json
+# Electron.js Ethereum App
+/ElectronApp(Ethereum)/node_modules/
+/ElectronApp(Ethereum)/dist/
+/ElectronApp(Ethereum)/.idea/
+/ElectronApp(Ethereum)/package-lock.json
+/ElectronApp(Ethereum)/*.iml
+
+# Electron.js BNB App
+/ElectronApp(BNB)/node_modules/
+/ElectronApp(BNB)/dist/
+/ElectronApp(BNB)/.idea/
+/ElectronApp(BNB)/package-lock.json
+/ElectronApp(BNB)/*.iml
+
+# Electron.js Solana App
+/ElectronApp(Solana)/node_modules/
+/ElectronApp(Solana)/dist/
+/ElectronApp(Solana)/.idea/
+/ElectronApp(Solana)/package-lock.json
+/ElectronApp(Solana)/*.iml
+
+# Electron.js Base App
+/ElectronApp(Base)/node_modules/
+/ElectronApp(Base)/dist/
+/ElectronApp(Base)/.idea/
+/ElectronApp(Base)/package-lock.json
+/ElectronApp(Base)/*.iml
 
 # Angular App
 /View/node_modules/
 /View/.idea/
 /View/package-lock.json
+/View/.angular

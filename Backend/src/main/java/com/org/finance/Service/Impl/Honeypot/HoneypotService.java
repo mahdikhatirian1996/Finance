@@ -58,7 +58,7 @@ public class HoneypotService implements IHoneypotService {
     @Override
     public String convertPureObject(JSONObject pureObject, String contractAddress) {
         StringBuilder params = new StringBuilder(" {") ;
-        Boolean haveHolderAnalysisJson = pureObject.getJSONObject("holderAnalysis").isEmpty();
+        Boolean haveHolderAnalysisJson = pureObject.has("holderAnalysis");
 
         JSONObject pairJson = pureObject.getJSONObject("pair");
         JSONObject chainJson = pureObject.getJSONObject("chain");
@@ -82,7 +82,7 @@ public class HoneypotService implements IHoneypotService {
         .append("\"sellTax\"").append(":\"").append(simulationResultJson.getDouble("sellTax")).append("\", ")
         .append("\"transferTax\"").append(":\"").append(simulationResultJson.getDouble("transferTax")).append("\"");
 
-        if (!haveHolderAnalysisJson) {
+        if (haveHolderAnalysisJson) {
             JSONObject holderAnalysisJson = pureObject.getJSONObject("holderAnalysis");
             params.append(", \"holders\"").append(":\"").append(holderAnalysisJson.getString("holders")).append("\", ")
             .append("\"averageGas\"").append(":\"").append(holderAnalysisJson.getDouble("averageGas")).append("\", ")
