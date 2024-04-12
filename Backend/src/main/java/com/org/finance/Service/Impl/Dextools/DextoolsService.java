@@ -1,11 +1,14 @@
 package com.org.finance.Service.Impl.Dextools;
 
 import com.org.finance.Dao.Dextools.IDextoolsRepository;
+import com.org.finance.Dto.Dextools.DextoolsInfoDto;
+import com.org.finance.Model.Enum.CurrencyType;
 import com.org.finance.Model.Enum.ErrorType;
 import com.org.finance.Model.Main.DextoolsInfo;
 import com.org.finance.Model.Main.HoneypotInfo;
 import com.org.finance.Service.Dextools.IDextoolsService;
 import com.org.finance.Service.Honeypot.IHoneypotService;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -37,8 +40,8 @@ public class DextoolsService implements IDextoolsService {
     }
 
     @Override
-    public Timestamp getDateFromDigitTimestamp(String timestampDigit) {
-        return new Timestamp(Long.parseLong(timestampDigit));
+    public Timestamp getDateFromDigitTimestamp(Long timestampDigit) {
+        return new Timestamp(timestampDigit);
     }
 
     @Override
@@ -57,13 +60,14 @@ public class DextoolsService implements IDextoolsService {
         if (isGreaterThanSpecificHour(entity.getCreatedDate(), 1)) {
             if (
                     iDextoolsRepository.findByContractAddress(entity.getContractAddress()) == null &&
-                    iHoneypotService.findByContractAddress(entity.getContractAddress()) == null
+                            iHoneypotService.findByContractAddress(entity.getContractAddress()) == null
             ) {
                 HoneypotInfo honeypotInfo = iHoneypotService.save(entity.getContractAddress());
                 if (entity.getName() == null) {
                     entity.setName(honeypotInfo.getName());
                 }
                 entity.setInsertedDate(new Timestamp(System.currentTimeMillis()));
+                entity.setCurrencyType(honeypotInfo.getCurrencyType());
                 return iDextoolsRepository.save(entity);
             } else {
                 return repeatedObject;
@@ -76,11 +80,67 @@ public class DextoolsService implements IDextoolsService {
     @Override
     public HashMap<String, Object> findAll(Integer currentPage, Integer pageSize) {
         HashMap<String, Object> params = new HashMap<>();
-        Pageable pageable =
-                PageRequest.of(currentPage, pageSize, Sort.by("createdDate").descending());
-        Page<DextoolsInfo> dextoolsInfos = iDextoolsRepository.findAll(pageable);
+        List<Integer> integerList = new ArrayList<>();
+        integerList.add(0);
+        integerList.add(1);
+        Pageable pageable = PageRequest.of(currentPage, pageSize, Sort.by("CREATED_DATE").descending());
+        Page<DextoolsInfo> dextoolsInfos = iDextoolsRepository.findAllBycByCurrencyTypeIndex(integerList, pageable);
         params.put("list", dextoolsInfos.getContent());
         params.put("count", dextoolsInfos.getTotalElements());
         return params;
+    }
+
+    @Override
+    public Page<DextoolsInfo> findAllSolanaAndBase(Integer currentPage, Integer pageSize) {
+        HashMap<String, Object> params = new HashMap<>();
+        List<Integer> integerList = new ArrayList<>();
+        integerList.add(2);
+        integerList.add(3);
+        Pageable pageable = PageRequest.of(currentPage, pageSize, Sort.by("CREATED_DATE").descending());
+        return iDextoolsRepository.findAllBycByCurrencyTypeIndex(integerList, pageable);
+    }
+
+    @Override
+    public DextoolsInfo mapDtoToEntity(DextoolsInfoDto dto, CurrencyType currencyType) {
+        JSONObject jsonObject = new JSONObject(dto.getInfo());
+        DextoolsInfo entity = new DextoolsInfo();
+
+        if (currencyType.equals(CurrencyType.BASE)) {
+            entity.setCreatedDate(dto.getCreatedAtTimestamp());
+            entity.setCurrencyType(currencyType);
+        } else if (currencyType.equals(CurrencyType.SOLANA)) {
+            entity.setCreatedDate(dto.getCreatedAt());
+            entity.setCurrencyType(currencyType);
+        }
+        if (jsonObject.has("name")) {
+            entity.setName(jsonObject.getString("name"));
+        }
+        if (jsonObject.has("symbol")) {
+            entity.setSymbol(jsonObject.getString("symbol"));
+        }
+        if (jsonObject.has("totalSupply")) {
+            entity.setTotalSupply(jsonObject.getString("totalSupply"));
+        }
+
+        entity.setContractAddress(jsonObject.getString("address"));
+        entity.setHolders(String.valueOf(jsonObject.getLong("holders")));
+        entity.setUpdatedDate(this.getDateFromDigitTimestamp(dto.getUpdatedAt() * 1000L));
+        entity.setLiquidity(String.valueOf(dto.getLiquidity()));
+
+        return entity;
+    }
+
+    @Override
+    public DextoolsInfo saveWithoutHoneypot(DextoolsInfo entity) throws IOException {
+        if (isGreaterThanSpecificHour(entity.getCreatedDate(), 1)) {
+            if (iDextoolsRepository.findByContractAddress(entity.getContractAddress()) == null) {
+                entity.setInsertedDate(new Timestamp(System.currentTimeMillis()));
+                return iDextoolsRepository.save(entity);
+            } else {
+                return repeatedObject;
+            }
+        } else {
+            return outOfTimeObject;
+        }
     }
 }

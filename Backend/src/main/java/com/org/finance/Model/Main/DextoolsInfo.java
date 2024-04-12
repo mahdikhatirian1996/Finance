@@ -1,5 +1,6 @@
 package com.org.finance.Model.Main;
 
+import com.org.finance.Model.Enum.CurrencyType;
 import com.org.finance.Model.Enum.ErrorType;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -29,6 +30,9 @@ public class DextoolsInfo {
     @Column(name = "LIQUIDITY")
     private String liquidity;
 
+    @Column(name = "TOTAL_SUPPLY")
+    private String totalSupply;
+
     @Column(name = "CREATED_DATE")
     private Timestamp createdDate;
 
@@ -37,6 +41,10 @@ public class DextoolsInfo {
 
     @Column(name = "INSERTED_DATE")
     private Timestamp insertedDate;
+
+    @Column(name = "CURRENCY_TYPE")
+    @Enumerated(EnumType.ORDINAL)
+    private CurrencyType currencyType;
 
     @Transient
     private ErrorType errorType;
