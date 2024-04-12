@@ -14,12 +14,14 @@ import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {CdkCopyToClipboard} from "@angular/cdk/clipboard";
 import {CopyTextDirective} from "./components/base/copyDirectiveToClipboard/copyDirective.component";
+import {NewpairWithoutHIComponent} from "./components/newpair/withoutHoneypot/newpairWithoutHI.component";
 
 @NgModule({
   declarations: [
     PaginationComponent,
     AppComponent,
     NewpairComponent,
+    NewpairWithoutHIComponent,
     CopyTextDirective
   ],
     imports: [
