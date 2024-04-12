@@ -1,16 +1,17 @@
 // @ts-nocheck
 import {interval, Subscription} from 'rxjs';
 import {Component, Directive, OnInit, OnDestroy} from '@angular/core';
-import {NewPairModel} from "../../models/newpair/newpair.model";
 import {NewPairService} from "../../services/newpair/newpair.service";
+import {NewpairWithoutHIModel} from "../../../models/newpair/newpairWithoutHI.model";
+import {NewpairWithoutHIService} from "../../../services/newpair/withoutHoneypot/newpairWithoutHI.service";
 
 @Component({
   selector: 'app-newpair-list',
-  templateUrl: './newpair.component.html'
+  templateUrl: './newpairWithoutHI.component.html'
 })
-export class NewpairComponent implements OnInit, OnDestroy {
+export class NewpairWithoutHIComponent implements OnInit, OnDestroy {
   // --- Grid Params ---
-  newPairModels: NewPairModel[] = [];
+  newPairModels: NewpairWithoutHIModel[] = [];
   hasInterval: boolean = false;
   subscription: Subscription = new Subscription();
   // --- Page Params ---
@@ -19,7 +20,7 @@ export class NewpairComponent implements OnInit, OnDestroy {
   totalItems: number = 0;
   totalPages: number = Math.ceil(this.totalItems / this.itemsPerPage);
 
-  constructor(private newPairService: NewPairService) {
+  constructor(private newPairService: NewpairWithoutHIService) {
   }
 
   ngOnInit(): void {
@@ -65,10 +66,6 @@ export class NewpairComponent implements OnInit, OnDestroy {
         this.newPairModels[i].createdDateDITimestamp =
           new Date(this.newPairModels[i].createdDateDI).toLocaleDateString() + " -- " + new Date(this.newPairModels[i].createdDateDI).toLocaleTimeString();
       }
-      if (this.newPairModels || this.newPairModels[i].createdDateHI !== null) {
-        this.newPairModels[i].createdDateHITimestamp =
-          new Date(this.newPairModels[i].createdDateDI).toLocaleDateString() + " -- " + new Date(this.newPairModels[i].createdDateDI).toLocaleTimeString();
-      }
       if (this.newPairModels || this.newPairModels[i].insertedDate) {
         this.newPairModels[i].insertedDateTimestamp =
           new Date(this.newPairModels[i].insertedDate).toLocaleDateString() + " -- " + new Date(this.newPairModels[i].insertedDate).toLocaleTimeString();
@@ -78,18 +75,9 @@ export class NewpairComponent implements OnInit, OnDestroy {
 
   roundingNumber() {
     for (let i = 0; i < this.newPairModels.length; i++) {
-      if (this.newPairModels) {
-        this.newPairModels[i].liquidityHI =
-          this.newPairModels[i].liquidityHI.split(".")[0] + "." + this.newPairModels[i].liquidityHI.split(".")[1].slice(0, 2);
+      if (this.newPairModels && this.newPairModels[i].liquidityDI !== 'null') {
         this.newPairModels[i].liquidityDI =
           this.newPairModels[i].liquidityDI.split(".")[0] + "." + this.newPairModels[i].liquidityDI.split(".")[1].slice(0, 2);
-        this.newPairModels[i].averageGas = this.newPairModels[i].averageGas.split(".")[0];
-        this.newPairModels[i].buyGas = this.newPairModels[i].buyGas.split(".")[0];
-        this.newPairModels[i].sellGas = this.newPairModels[i].sellGas.split(".")[0];
-        this.newPairModels[i].averageTax = this.newPairModels[i].averageTax.split(".")[0];
-        this.newPairModels[i].buyTax = this.newPairModels[i].buyTax.split(".")[0];
-        this.newPairModels[i].sellTax = this.newPairModels[i].sellTax.split(".")[0];
-        this.newPairModels[i].transferTax = this.newPairModels[i].transferTax.split(".")[0];
       }
     }
   }
