@@ -11,5 +11,6 @@ public class DextoolsInfoDto {
     private String info;
     private Long updatedAt;
     private Timestamp createdAt;
+    private Timestamp createdAtTimestamp;
     private Double liquidity;
 }
