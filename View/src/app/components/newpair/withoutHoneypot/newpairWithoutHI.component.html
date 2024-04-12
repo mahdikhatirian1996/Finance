@@ -9,7 +9,8 @@
         <th class="text-nowrap">Liquidity</th>
         <th class="text-nowrap">Created Date</th>
         <th class="text-nowrap">Inserted Date</th>
-        <th class="text-nowrap">CurrencyType Name</th>
+        <th class="text-nowrap">Total Supply</th>
+        <th class="text-nowrap">CurrencyType</th>
       </tr>
       </thead>
       <tbody class="table-group-divider table-divider-color">
@@ -35,6 +36,9 @@
         </td>
         <td class="text-nowrap">
           {{ newPair.insertedDateTimestamp?.replace('T', ' ') }}
+        </td>
+        <td class="text-nowrap">
+          {{ newPair.totalSupply }}
         </td>
         <td class="text-nowrap">
           {{ newPair.currencyTypeName }}

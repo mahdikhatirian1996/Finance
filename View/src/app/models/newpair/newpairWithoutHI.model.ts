@@ -10,4 +10,5 @@ export class NewpairWithoutHIModel {
   insertedDate?: number;
   insertedDateTimestamp?: string;
   currencyTypeName?: string;
+  totalSupply?: string;
 }

@@ -107,6 +107,7 @@ public class NewPairsService implements INewPairsService {
         dto.setUpdatedDate(dextoolsInfo.getUpdatedDate().getTime());
         dto.setInsertedDate(dextoolsInfo.getInsertedDate().getTime());
         dto.setCurrencyTypeName(dextoolsInfo.getCurrencyType().getHoneypotTitle());
+        dto.setTotalSupply(dextoolsInfo.getTotalSupply());
         return dto;
     }
 

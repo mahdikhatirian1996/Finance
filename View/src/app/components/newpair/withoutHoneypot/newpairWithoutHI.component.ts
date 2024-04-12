@@ -77,7 +77,7 @@ export class NewpairWithoutHIComponent implements OnInit, OnDestroy {
     for (let i = 0; i < this.newPairModels.length; i++) {
       if (this.newPairModels && this.newPairModels[i].liquidityDI !== null) {
         this.newPairModels[i].liquidityDI =
-          this.newPairModels[i].liquidityDI.split(".")[0] + "." + this.newPairModels[i].liquidityDI.split(".")[1].slice(0, 2);
+          this.newPairModels[i].liquidityDI.split(".")[0] + "." + this.newPairModels[i].liquidityDI.split(".")[1].substring(0, 2);
       }
     }
   }

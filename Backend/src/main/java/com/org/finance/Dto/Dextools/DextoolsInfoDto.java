@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 @Setter
 public class DextoolsInfoDto {
     private String info;
+    private String tempInfo;
     private Long updatedAt;
     private Timestamp createdAt;
     private Timestamp createdAtTimestamp;
