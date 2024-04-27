@@ -15,8 +15,10 @@
       </thead>
       <tbody class="table-group-divider table-divider-color">
       <tr *ngFor="let newPair of newPairModels">
-        <td class="text-nowrap" style="cursor: grab" appCopyText copyText="{{newPair.contractAddress}}">
-          Click To Copy : {{ newPair.contractAddress?.slice(0, 6) }}...
+        <td class="text-nowrap" appCopyText copyText="{{newPair.contractAddress}}">
+          <span style="cursor: grab">Click To Copy : {{ newPair.contractAddress?.slice(0, 6) }}...</span>
+          <br><br><a class="btn btn-success btn-group" *ngIf="newPair.currencyTypeName === 'SOLANA'" href="https://www.dextools.io/app/en/solana/pair-explorer/{{ newPair.contractAddress }}" rel="noopener noreferrer" target="_blank">Dextools</a>
+          <br><br><a class="btn btn-success btn-group" *ngIf="newPair.currencyTypeName === 'BASE'" href="https://www.dextools.io/app/en/base/pair-explorer/{{ newPair.contractAddress }}" rel="noopener noreferrer" target="_blank">Dextools</a>
         </td>
         <td class="text-nowrap">
           Name: {{ newPair.nameDI }}
