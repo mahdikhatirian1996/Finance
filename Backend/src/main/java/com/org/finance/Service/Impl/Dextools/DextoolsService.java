@@ -142,9 +142,6 @@ public class DextoolsService implements IDextoolsService {
 
     @Override
     public DextoolsInfo saveWithoutHoneypot(DextoolsInfo entity) throws IOException {
-        if (entity.getContractAddress().toLowerCase().equals("9straduxsfs21cw2yddye1onpff8ebgshdrp87o16zcg")) {
-            return null;
-        }
         if (
                 isGreaterThanSpecificHour(entity.getCreatedDate(), 1) &&
                 isHolderMoreSpecificCount(entity, 100L)

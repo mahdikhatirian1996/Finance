@@ -4,7 +4,7 @@ import {NewpairComponent} from "./components/newpair/newpair.component";
 import {NewpairWithoutHIComponent} from "./components/newpair/withoutHoneypot/newpairWithoutHI.component";
 
 const routes: Routes = [
-  { path: '', redirectTo: 'newpairInfo', pathMatch: 'full' },
+  { path: '', redirectTo: 'newpairInfoWithoutHI', pathMatch: 'full' },
   { path: 'newpairInfo', component: NewpairComponent },
   { path: 'newpairInfoWithoutHI', component: NewpairWithoutHIComponent }
 ];
