@@ -27,6 +27,8 @@ public class DextoolsService implements IDextoolsService {
 
     private final DextoolsInfo repeatedObject = new DextoolsInfo(ErrorType.REPEATED);
     private final DextoolsInfo outOfTimeObject = new DextoolsInfo(ErrorType.OUT_OF_TIME);
+    private final DextoolsInfo littleHoldersObject = new DextoolsInfo(ErrorType.LITTLE_HOLDERS);
+    private final DextoolsInfo unknownObject = new DextoolsInfo(ErrorType.UNKNOWN);
 
     @Autowired
     private IDextoolsRepository iDextoolsRepository;
@@ -53,6 +55,14 @@ public class DextoolsService implements IDextoolsService {
             }
         }
         return false;
+        /* if (
+                objectTs.getYear() == currentTs.getYear() &&
+                objectTs.getMonth() == currentTs.getMonth() &&
+                objectTs.getDate() == currentTs.getDate()
+        ) {
+            return currentTs.getHours() - objectTs.getHours() <= specificHour;
+        }
+        return false; */
     }
 
     @Override
@@ -60,7 +70,7 @@ public class DextoolsService implements IDextoolsService {
         if (isGreaterThanSpecificHour(entity.getCreatedDate(), 1)) {
             if (
                     iDextoolsRepository.findByContractAddress(entity.getContractAddress()) == null &&
-                            iHoneypotService.findByContractAddress(entity.getContractAddress()) == null
+                    iHoneypotService.findByContractAddress(entity.getContractAddress()) == null
             ) {
                 HoneypotInfo honeypotInfo = iHoneypotService.save(entity.getContractAddress());
                 if (entity.getName() == null) {
@@ -132,7 +142,13 @@ public class DextoolsService implements IDextoolsService {
 
     @Override
     public DextoolsInfo saveWithoutHoneypot(DextoolsInfo entity) throws IOException {
-        if (isGreaterThanSpecificHour(entity.getCreatedDate(), 1)) {
+        if (entity.getContractAddress().toLowerCase().equals("9straduxsfs21cw2yddye1onpff8ebgshdrp87o16zcg")) {
+            return null;
+        }
+        if (
+                isGreaterThanSpecificHour(entity.getCreatedDate(), 1) &&
+                isHolderMoreSpecificCount(entity, 100L)
+        ) {
             if (iDextoolsRepository.findByContractAddress(entity.getContractAddress()) == null) {
                 entity.setInsertedDate(new Timestamp(System.currentTimeMillis()));
                 return iDextoolsRepository.save(entity);
@@ -140,7 +156,16 @@ public class DextoolsService implements IDextoolsService {
                 return repeatedObject;
             }
         } else {
-            return outOfTimeObject;
+            if (!isGreaterThanSpecificHour(entity.getCreatedDate(), 1))
+                return outOfTimeObject;
+            else if (!isHolderMoreSpecificCount(entity, 100L))
+                return littleHoldersObject;
+            return unknownObject;
         }
+    }
+
+    @Override
+    public Boolean isHolderMoreSpecificCount(DextoolsInfo entity, Long specificHolder) {
+        return entity.getHolders() != null && Long.parseLong(entity.getHolders()) > specificHolder;
     }
 }
