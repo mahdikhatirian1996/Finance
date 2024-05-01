@@ -18,4 +18,5 @@ public interface IDextoolsService {
     DextoolsInfo getByContractAddress(String contractAddress);
     DextoolsInfo save(DextoolsInfo entity) throws IOException;
     Timestamp getDateFromDigitTimestamp(Long timestampDigit);
+    Boolean isHolderMoreSpecificCount(DextoolsInfo entity, Long specificHolder);
 }
