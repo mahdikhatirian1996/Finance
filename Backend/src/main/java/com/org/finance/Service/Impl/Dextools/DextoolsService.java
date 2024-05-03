@@ -136,7 +136,6 @@ public class DextoolsService implements IDextoolsService {
         entity.setHolders(String.valueOf(jsonObject.getLong("holders")));
         entity.setUpdatedDate(this.getDateFromDigitTimestamp(dto.getUpdatedAt() * 1000L));
         entity.setLiquidity(String.valueOf(dto.getLiquidity()));
-
         return entity;
     }
 
