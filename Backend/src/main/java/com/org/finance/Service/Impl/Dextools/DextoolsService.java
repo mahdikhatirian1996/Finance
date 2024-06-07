@@ -116,7 +116,7 @@ public class DextoolsService implements IDextoolsService {
         DextoolsInfo entity = new DextoolsInfo();
 
         if (currencyType.equals(CurrencyType.BASE)) {
-            entity.setCreatedDate(dto.getCreatedAtTimestamp());
+            entity.setCreatedDate(dto.getCreatedAt());
             entity.setCurrencyType(currencyType);
         } else if (currencyType.equals(CurrencyType.SOLANA)) {
             entity.setCreatedDate(dto.getCreatedAt());
