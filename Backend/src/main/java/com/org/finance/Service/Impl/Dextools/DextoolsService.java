@@ -101,11 +101,12 @@ public class DextoolsService implements IDextoolsService {
     }
 
     @Override
-    public Page<DextoolsInfo> findAllSolanaAndBase(Integer currentPage, Integer pageSize) {
+    public Page<DextoolsInfo> findAllSolanaAndBaseAndTon(Integer currentPage, Integer pageSize) {
         HashMap<String, Object> params = new HashMap<>();
         List<Integer> integerList = new ArrayList<>();
         integerList.add(2);
         integerList.add(3);
+        integerList.add(4);
         Pageable pageable = PageRequest.of(currentPage, pageSize, Sort.by("CREATED_DATE").descending());
         return iDextoolsRepository.findAllBycByCurrencyTypeIndex(integerList, pageable);
     }
@@ -114,14 +115,12 @@ public class DextoolsService implements IDextoolsService {
     public DextoolsInfo mapDtoToEntity(DextoolsInfoDto dto, CurrencyType currencyType) {
         JSONObject jsonObject = new JSONObject(dto.getInfo());
         DextoolsInfo entity = new DextoolsInfo();
+        entity.setCurrencyType(currencyType);
+        entity.setCreatedDate(dto.getCreatedAt());
+        entity.setLiquidity(String.valueOf(dto.getLiquidity()));
+        entity.setContractAddress(jsonObject.getString("address"));
+        entity.setUpdatedDate(this.getDateFromDigitTimestamp(dto.getUpdatedAt() * 1000L));
 
-        if (currencyType.equals(CurrencyType.BASE)) {
-            entity.setCreatedDate(dto.getCreatedAt());
-            entity.setCurrencyType(currencyType);
-        } else if (currencyType.equals(CurrencyType.SOLANA)) {
-            entity.setCreatedDate(dto.getCreatedAt());
-            entity.setCurrencyType(currencyType);
-        }
         if (jsonObject.has("name")) {
             entity.setName(jsonObject.getString("name"));
         }
@@ -131,19 +130,22 @@ public class DextoolsService implements IDextoolsService {
         if (jsonObject.has("totalSupply")) {
             entity.setTotalSupply(jsonObject.getString("totalSupply"));
         }
-
-        entity.setContractAddress(jsonObject.getString("address"));
-        entity.setHolders(String.valueOf(jsonObject.getLong("holders")));
-        entity.setUpdatedDate(this.getDateFromDigitTimestamp(dto.getUpdatedAt() * 1000L));
-        entity.setLiquidity(String.valueOf(dto.getLiquidity()));
+        if (jsonObject.has("holders")) {
+            entity.setHolders(String.valueOf(jsonObject.getLong("holders")));
+        }
         return entity;
     }
 
     @Override
     public DextoolsInfo saveWithoutHoneypot(DextoolsInfo entity) throws IOException {
         if (
+                (entity.getCurrencyType().equals(CurrencyType.TON) &&
+                isGreaterThanSpecificHour(entity.getCreatedDate(), 1)) ||
+                (entity.getHolders() == null &&
+                isGreaterThanSpecificHour(entity.getCreatedDate(), 1)) ||
+                (entity.getHolders() != null &&
                 isGreaterThanSpecificHour(entity.getCreatedDate(), 1) &&
-                isHolderMoreSpecificCount(entity, 100L)
+                isHolderMoreSpecificCount(entity, 100L))
         ) {
             if (iDextoolsRepository.findByContractAddress(entity.getContractAddress()) == null) {
                 entity.setInsertedDate(new Timestamp(System.currentTimeMillis()));

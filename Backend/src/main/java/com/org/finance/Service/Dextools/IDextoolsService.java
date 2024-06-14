@@ -14,7 +14,7 @@ public interface IDextoolsService {
     Boolean isGreaterThanSpecificHour(Timestamp objectTs, Integer specificHour);
     DextoolsInfo saveWithoutHoneypot(DextoolsInfo entity) throws IOException;
     HashMap<String, Object> findAll(Integer currentPage, Integer pageSize);
-    Page<DextoolsInfo> findAllSolanaAndBase(Integer currentPage, Integer pageSize);
+    Page<DextoolsInfo> findAllSolanaAndBaseAndTon(Integer currentPage, Integer pageSize);
     DextoolsInfo getByContractAddress(String contractAddress);
     DextoolsInfo save(DextoolsInfo entity) throws IOException;
     Timestamp getDateFromDigitTimestamp(Long timestampDigit);

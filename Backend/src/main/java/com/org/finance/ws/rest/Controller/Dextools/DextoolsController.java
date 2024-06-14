@@ -25,8 +25,8 @@ public class DextoolsController {
         try {
             DextoolsInfo savedObject = iDextoolsService.save(
                     new ObjectMapper().readValue(
-                            params,
-                            DextoolsInfo.class
+                    params,
+                    DextoolsInfo.class
                     )
             );
             if (savedObject.getContractAddress() != null) {
@@ -63,6 +63,23 @@ public class DextoolsController {
         try {
             DextoolsInfo savedObject = iDextoolsService.saveWithoutHoneypot(
                     iDextoolsService.mapDtoToEntity(dto, CurrencyType.BASE)
+            );
+            if (savedObject.getContractAddress() != null) {
+                System.out.println("Save At : " + new Timestamp(System.currentTimeMillis()));
+            } else {
+                System.out.println("Object Isn't Valid Cause : " + savedObject.getErrorType().getEnglishTitle());
+            }
+        } catch (Exception e) {
+            System.out.println("Exception Occur On : " + e.getMessage());
+        }
+    }
+
+    @ResponseBody
+    @PostMapping("/saveData/ton")
+    public void saveTonData(@RequestBody DextoolsInfoDto dto) {
+        try {
+            DextoolsInfo savedObject = iDextoolsService.saveWithoutHoneypot(
+                    iDextoolsService.mapDtoToEntity(dto, CurrencyType.TON)
             );
             if (savedObject.getContractAddress() != null) {
                 System.out.println("Save At : " + new Timestamp(System.currentTimeMillis()));

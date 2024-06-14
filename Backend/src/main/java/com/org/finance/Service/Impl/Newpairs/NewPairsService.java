@@ -37,7 +37,7 @@ public class NewPairsService implements INewPairsService {
     public HashMap<String, Object> setDIOnDtos(Integer currentPage, Integer pageSize) {
         List<NewpairDto> newpairDtos = new ArrayList<>();
         HashMap<String, Object> params = new HashMap<>();
-        Page<DextoolsInfo> dextoolsInfos = iDextoolsService.findAllSolanaAndBase(currentPage, pageSize);
+        Page<DextoolsInfo> dextoolsInfos = iDextoolsService.findAllSolanaAndBaseAndTon(currentPage, pageSize);
 
         for (DextoolsInfo object : dextoolsInfos.getContent()) {
             newpairDtos.add(this.mapDiListToEntity(
