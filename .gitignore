@@ -33,6 +33,13 @@
 /ElectronApp(Base)/package-lock.json
 /ElectronApp(Base)/*.iml
 
+# Electron.js Ton App
+/ElectronApp(Ton)/node_modules/
+/ElectronApp(Ton)/dist/
+/ElectronApp(Ton)/.idea/
+/ElectronApp(Ton)/package-lock.json
+/ElectronApp(Ton)/*.iml
+
 # Angular App
 /View/node_modules/
 /View/.idea/
